@@ -1,0 +1,34 @@
+--- @type ACTIONS.DRAW.FUNCTION
+local function F_tb()
+    local R = {}
+
+    --- @type position_abrv
+    R.pos = "tb"
+
+    --- @type "footer" | "title"
+    R.name_location = "footer"
+
+    local col = math.floor(vim.o.columns * 0.275)
+
+    local width = math.floor(vim.o.columns * 0.45)
+    local height = 1
+
+    --- @type vim.api.keyset.win_config
+    R.config = {
+        width = width,
+        height = height,
+
+        col = col,
+        row = 1,
+
+        footer = "",
+        footer_pos = "center",
+
+        relative = "editor",
+        style = "minimal", -- No extra UI elements, e.g. status bar.
+        border = "rounded",
+    }
+
+    return R
+end
+return F_tb
