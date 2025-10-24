@@ -45,8 +45,6 @@ local function Open(FLOAT, opts)
     local FAD = FLOAT.actions.draw(position, buf)
     local bufwin = FAD.bufwin
     local win_config = FAD.draw_opts
-    -- IDEA: does this need to pass in the state object, for state based styling?
-    -- i.e. win title, and title position.
 
     -- styles the window
     STYLE.style( --

@@ -35,7 +35,9 @@ local STATE = {
     push_win = require("floating.state.push_win"),
 }
 --- TODO:
---- What's positions? Where is is stored, and how can a user extend it? Automatically?
+--- What's positions?
+--- How can a user extend it?
+--- Automatically?
 --- for _, pos positions do
 ---     table.insert(STATE.positions, pos)
 --- end
