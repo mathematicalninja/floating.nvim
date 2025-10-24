@@ -43,7 +43,6 @@ local function Toggle(FLOAT, style_name)
     -- ordered list of *preferred* positions.
     local positions = STYLE.positions
     local p = STATE:get_first_free_position(positions)
-    --TODO check for "first" free position, then open a window there.
     FLOAT.open({
         style_name = STYLE.name,
         pos = p,
