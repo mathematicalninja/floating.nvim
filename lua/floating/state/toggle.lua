@@ -41,6 +41,7 @@ local function Toggle(FLOAT, style_name)
     end
 
     -- ordered list of *preferred* positions.
+    print(vim.inspect(STYLE))
     local positions = STYLE.positions
     local p = STATE:get_first_free_position(positions)
     --TODO check for "first" free position, then open a window there.

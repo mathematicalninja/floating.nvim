@@ -1,19 +1,21 @@
---- @alias style_name
---- | style_name
---- | "____"
-
 -- adds type support for this style's data.
 --- @class STATE.style_data
 --- @field default? {
 --- }
 
-local style_name = "____"
+local style_name = "default"
 
 --- @type STYLE
 local Default = {
     name = style_name,
+    -- Corners
     positions = { "tr", "br", "tl", "bl" },
-    -- positions = { "tp", "cp", "bp" },
+    -- "popup" bars
+    -- positions = { "tb", "cb", "bb" },
+    -- special cases
+    -- positions = {
+    --      "cc" -- center center
+    -- },
 
     -- `ATTACH` is run when the module is loaded by nvim.
     -- This is mainly to define a state buffer in FLOAT.STATE[this.name].

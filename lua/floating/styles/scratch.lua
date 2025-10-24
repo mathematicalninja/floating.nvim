@@ -6,7 +6,6 @@
 --- @class STATE.style_data
 --- @field scratch? {
 ---         filetype:string,
----         file_extension?:string,
 --- }
 
 local style_name = "scratch"
@@ -18,14 +17,17 @@ local Scratch = {
 
     -- `ATTACH` is run when the module is loaded by nvim.
     -- This is mainly to define a state buffer in FLOAT.STATE[this.name].
-    ATTACH = function(FLOAT) end,
+    ATTACH = function(FLOAT)
+        FLOAT.state.style_data.scratch = {
+            filetype = "",
+        }
+    end,
 
     -- `setup` runs before the new buffer or its window is opened. Useful for getting info about current buffer or what's under the cursor.
     setup = function(STATE)
         local buf = vim.api.nvim_get_current_buf() -- in case of oddities. (rather than buf = 0)
         local ft = vim.bo[buf].filetype
         STATE.style_data[style_name].filetype = ft
-        STATE.style_data[style_name].file_extension = vim.filetype.get_option(ft, "file")
     end,
 
     -- BUG opts.name_location == nil
@@ -34,7 +36,7 @@ local Scratch = {
     style = function(opts)
         -- Data get.
         local bufwin = opts.bufwin
-        local ft = opts.STATE.style_data[style_name].filetype
+        local ft = opts.state.style_data[style_name].filetype
         -- 1. Win config
         local conf = vim.api.nvim_win_get_config(bufwin.win)
 
@@ -59,6 +61,8 @@ local Scratch = {
 
         -- set title (may be in the footer)
         conf[opts.conf_pos.name_location] = "Scratch." .. ft
+        print(ft)
+
         vim.api.nvim_win_set_config(bufwin.win, conf)
 
         -- 2. Set to scratch details.
@@ -71,7 +75,7 @@ local Scratch = {
         vim.api.nvim_buf_set_var(bufwin.buf, "buflisted", false)
         --
         -- 3. File-type match
-        vim.bo[bufwin.buf].filetype = ft
+        vim.api.nvim_set_option_value("filetype", ft, { buf = bufwin.buf })
     end,
 
     ----------------------------------------

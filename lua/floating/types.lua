@@ -32,3 +32,10 @@
 ---     pos:position_abrv,
 ---     name_location: "footer"|"title",
 --- }
+
+--- @alias floatin_opts {
+---     styles:STYLE[] | nil,
+---     dev: boolean | nil,
+---     dont_load_default_user_commands: boolean | nil,
+---     dont_use_default_keymaps: boolean | nil,
+--- }

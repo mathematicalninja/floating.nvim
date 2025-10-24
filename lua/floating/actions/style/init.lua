@@ -9,7 +9,7 @@
 ---         ):nil),
 --- setup: (fun(STATE:STATE)),
 --- style: (fun(opts:{
----             STATE:STATE,
+---             state:STATE,
 ---             bufwin:bufwin,
 ---             conf_pos:config_and_position,
 ---             data:table, --- individual float styles define what their data looks like.

@@ -1,76 +1,74 @@
 -- duplicate loading prevention
-if vim.g.loaded_floating_nvim then
+-- note "floating.nvim" is a reasonably likely name conflict.
+if vim.g.loaded_mathematicalninja_floating_nvim then
     return
 end
-vim.g.loaded_floating_nvim = true
+vim.g.loaded_mathematicalninja_floating_nvim = true
 
--- Dev guard
-DEV_FLOATING = true
--- developer mode, should be off, unless you want to fiddle.
--- Dev testing shortcut
-if DEV_FLOATING then
-    require("floating.dev")
-end
-
--- types
-require("floating.types")
-
--- setting up
---- @type FLOAT
-local TABLE = {
-    actions = require("floating.actions"),
-    state = require("floating.state"),
-
-    -- placeholders
-
-    style_tables = {},
-    open = function(opts) end,
-    attach_style = function(STYLE) end,
-    toggle = function(STYLE) end,
-}
-
--- this lets the end user just call FLOAT.open({ style_name, pos })
-TABLE.open = function(opts)
-    local func = require("floating.actions.open")
-    func(TABLE, opts)
-end
-
--- this lets the end user just call FLOAT.toggle(style_name)
-TABLE.toggle = function(style_name)
-    local func = require("floating.state.toggle")
-    func(TABLE, style_name)
-end
-
---- TODO: change to TABLE.STATE.SETUP(TABLE)
-require("floating.state.setup")(TABLE)
-
-TABLE.attach_style = function(STYLE)
-    local func = require("floating.actions.attach_style")
-    return func(TABLE, STYLE)
-end
-
-local duplicate = require("floating.styles.duplicate")
-TABLE.attach_style(duplicate)
-
-for _, style_table in pairs(TABLE.style_tables) do
-    if style_table == nil then
-        goto continue
+local M = {}
+M.setup = function(setup_opts)
+    -- developer mode, should be off, unless you want to fiddle.
+    -- Dev testing shortcut
+    if setup_opts.dev then
+        require("floating.dev")
     end
 
-    style_table.ATTACH(TABLE)
+    -- types
+    require("floating.types")
 
-    ::continue::
-end
+    -- setting up
+    --- @type FLOAT
+    local TABLE = {
+        actions = require("floating.actions"),
+        state = require("floating.state"),
+        style_tables = vim.tbl_deep_extend("force", {}, require("floating.styles"), setup_opts.styles or {}),
 
---- @param opts {
----     dont_load_default_user_commands: boolean | nil,
----     dont_use_default_keymaps: boolean | nil,
---- }
----     maybe?
----     skip_module: {style_name:boolean}
-local function setup(opts)
+        -- placeholders
+
+        open = function(opts) end,
+        attach_style = function(STYLE) end,
+        toggle = function(STYLE) end,
+    }
+
+    -- this lets the end user just call FLOAT.open({ style_name, pos })
+    TABLE.open = function(opts)
+        local func = require("floating.actions.open")
+        func(TABLE, opts)
+    end
+
+    -- this lets the end user just call FLOAT.toggle(style_name)
+    TABLE.toggle = function(style_name)
+        local func = require("floating.state.toggle")
+        func(TABLE, style_name)
+    end
+
+    --- TODO: change to TABLE.STATE.SETUP(TABLE)
+    require("floating.state.setup")(TABLE)
+
+    TABLE.attach_style = function(STYLE)
+        local func = require("floating.actions.attach_style")
+        return func(TABLE, STYLE)
+    end
+
+    for _, style in ipairs(TABLE.style_tables) do
+        TABLE.attach_style(style)
+    end
+
+    -- local duplicate = require("floating.styles.duplicate")
+    -- TABLE.attach_style(duplicate)
+
+    for _, style_table in pairs(TABLE.style_tables) do
+        if style_table == nil then
+            goto continue
+        end
+
+        style_table.ATTACH(TABLE)
+
+        ::continue::
+    end
+
     --{{{ default user_commands
-    if opts.dont_load_default_user_commands then
+    if setup_opts.dont_load_default_user_commands then
         goto skip_defaults
     end
     vim.api.nvim_create_user_command( --
@@ -83,7 +81,7 @@ local function setup(opts)
     --}}}
 
     --{{{ default keymaps
-    if opts.dont_use_default_keymaps then
+    if setup_opts.dont_use_default_keymaps then
         goto skip_defaults
     end
     vim.keymap.set( --
@@ -95,40 +93,69 @@ local function setup(opts)
 
     ::skip_defaults::
     --}}}
-end
 
---{{{ Dev testing commands
-if DEV_FLOATING then
-    vim.api.nvim_create_user_command( --
-        "FloatAAA",
-        function()
-            TABLE.open({
-                style_name = "duplicate",
-                pos = "tr",
-            })
-        end,
-        {}
-    )
-    vim.keymap.set( --
-        "n",
-        "<leader><leader>k",
-        "<CMD>FloatAAA<CR>",
-        {}
-    )
+    --{{{ Dev testing commands
+    if setup_opts.dev then
+        vim.api.nvim_create_user_command( --
+            "FloatAAA",
+            function()
+                TABLE.open({
+                    style_name = "duplicate",
+                    pos = "tr",
+                })
+            end,
+            {}
+        )
+        vim.keymap.set( --
+            "n",
+            "<leader><leader>k",
+            "<CMD>FloatAAA<CR>",
+            {}
+        )
 
-    vim.api.nvim_create_user_command( --
-        "FloatToggleTest",
-        function()
-            TABLE.toggle("duplicate")
-        end,
-        {}
-    )
-    vim.keymap.set( --
-        "n",
-        "<leader><leader>l",
-        "<CMD>FloatToggleTest<CR>",
-        {}
-    )
+        vim.api.nvim_create_user_command( --
+            "FloatToggleScratch",
+            function()
+                TABLE.toggle("scratch")
+            end,
+            {}
+        )
+        vim.keymap.set( --
+            "n",
+            "<leader>fs",
+            "<CMD>FloatToggleScratch<CR>",
+            {}
+        )
+
+        vim.api.nvim_create_user_command( --
+            "FloatToggleDuplicate",
+            function()
+                TABLE.toggle("duplicate")
+            end,
+            {}
+        )
+        vim.keymap.set( --
+            "n",
+            "<leader>fd",
+            "<CMD>FloatToggleDuplicate<CR>",
+            {}
+        )
+
+        vim.api.nvim_create_user_command( --
+            "FloatToggleDefault",
+            function()
+                TABLE.toggle("default")
+            end,
+            {}
+        )
+        vim.keymap.set( --
+            "n",
+            "<leader>ff",
+            "<CMD>FloatToggleDefault<CR>",
+            {}
+        )
+    end
+    --}}}
+    return TABLE
 end
---}}}
-return TABLE
+return M
