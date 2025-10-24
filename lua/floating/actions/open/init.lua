@@ -14,7 +14,6 @@
 --- @param opts Actions.Open.opts
 --- @return config_and_position
 local function Open(FLOAT, opts)
-    -- local style_name = opts.style_name or "default"
     local style_name = opts.style_name or "default"
     local position = opts.pos or "tr"
 
