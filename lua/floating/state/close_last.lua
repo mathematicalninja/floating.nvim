@@ -1,5 +1,3 @@
---- TODO  update STATE.close_last(STATE) ==> STATE.close_last(FLOAT)
-
 --- @param FLOAT FLOAT
 --- @return boolean | nil
 local Close_Last = function(FLOAT)
