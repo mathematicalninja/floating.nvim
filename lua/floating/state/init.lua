@@ -11,7 +11,7 @@
 --- @field check fun(STATE:STATE, position_abrv)
 --- @field get_last_win (fun(STATE:STATE):bufwin_state | nil)
 --- @field get_last_index (fun(STATE:STATE):integer | nil)
---- @field close_last (fun(STATE:STATE):boolean | nil)
+--- @field close_last (fun(FLOAT:FLOAT):boolean | nil)
 --- @field push_win fun(STATE:STATE, bufwin_state:bufwin_state):boolean
 --- @field get_first_free_position fun(STATE:STATE, position_list:position_abrv[]):position_abrv
 
