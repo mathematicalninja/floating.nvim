@@ -5,7 +5,7 @@
 local function Check(STATE, position_abrv)
     local wins = STATE.window_states
 
-    for i, w in ipairs(wins) do
+    for _, w in ipairs(wins) do
         if w.position == position_abrv then
             return false
         end
