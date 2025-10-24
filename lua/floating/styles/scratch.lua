@@ -61,7 +61,6 @@ local Scratch = {
 
         -- set title (may be in the footer)
         conf[opts.conf_pos.name_location] = "Scratch." .. ft
-        print(ft)
 
         vim.api.nvim_win_set_config(bufwin.win, conf)
 

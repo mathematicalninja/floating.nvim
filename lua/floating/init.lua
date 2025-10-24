@@ -42,9 +42,6 @@ M.setup = function(setup_opts)
         func(TABLE, style_name)
     end
 
-    --- TODO: change to TABLE.STATE.SETUP(TABLE)
-    require("floating.state.setup")(TABLE)
-
     TABLE.attach_style = function(STYLE)
         local func = require("floating.actions.attach_style")
         return func(TABLE, STYLE)
