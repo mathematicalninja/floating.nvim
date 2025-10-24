@@ -1,5 +1,6 @@
 --- @type ACTIONS.DRAW.FUNCTION
 local function F_bb()
+    --- @type Position_Return
     local R = {}
 
     --- @type position_abrv

@@ -1,5 +1,6 @@
 --- @type ACTIONS.DRAW.FUNCTION
 local function F_cc()
+    --- @type Position_Return
     local R = {}
 
     --- @type position_abrv
@@ -32,4 +33,4 @@ local function F_cc()
 
     return R
 end
-return F_cp
+return F_cc

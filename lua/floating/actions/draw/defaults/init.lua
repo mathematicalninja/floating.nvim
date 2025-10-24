@@ -1,9 +1,9 @@
---- @alias ACTIONS.DRAW.FUNCTION fun():{
+--- @alias Position_Return {
 ---     pos: position_abrv,
 ---     name_location:"footer" | "title",
 ---     config:vim.api.keyset.win_config,
 --- }
-
+--- @alias ACTIONS.DRAW.FUNCTION fun():Position_Return
 --{{{ Abbreviations
 
 --- @alias position_abrv
@@ -40,6 +40,7 @@ local Positions = {
     cp = require("floating.actions.draw.defaults.bars.cb"),
 
     cc = require("floating.actions.draw.defaults.special.cc"),
+    clock = require("floating.actions.draw.defaults.special.cc"),
 }
 
 return Positions
