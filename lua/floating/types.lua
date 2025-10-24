@@ -39,3 +39,31 @@
 ---     dont_load_default_user_commands: boolean | nil,
 ---     dont_use_default_keymaps: boolean | nil,
 --- }
+
+--- @alias STYLE {
+--- name: style_name,
+--- positions: position_abrv[],
+--- ATTACH: (fun(
+---             FLOAT:FLOAT,
+---         ):nil),
+--- setup: (fun(STATE:STATE)),
+--- style: (fun(opts:{
+---             state:STATE,
+---             bufwin:bufwin,
+---             conf_pos:config_and_position,
+---             data:table, --- individual float styles define what their data looks like.
+---         }):nil),
+--- push: (fun(
+---             STATE:STATE,
+---             bufwin_pos:bufwin_pos,
+---         ):nil),
+--- pop: (fun(
+---             STATE:STATE,
+---             bufwin_state:bufwin_state,
+---         ):nil),
+--- }
+
+--- @alias ACTIONS.STYLES {[style_name]: STYLE}
+
+--- @alias style_name
+--- | "default"
