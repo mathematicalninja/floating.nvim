@@ -18,9 +18,10 @@ local function clock()
         relative = "editor",
         style = "minimal", -- No extra UI elements, e.g. status bar.
         -- border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-        -- border = { "", "", "", "║", "╝", "═", "", "" },
         border = { "", "", "", "║", "╝", "═", "", "" },
+        -- border = { "", "", "", "🯎", "🯯", "═", "", "" },
     }
+
     return R
 end
 

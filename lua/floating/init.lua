@@ -1,9 +1,9 @@
--- duplicate loading prevention
--- note "floating.nvim" is a reasonably likely name conflict.
--- if vim.g.loaded_mathematicalninja_floating_nvim then
---     return
--- end
--- vim.g.loaded_mathematicalninja_floating_nvim = true
+duplicate loading prevention
+note "floating.nvim" is a reasonably likely name conflict.
+if vim.g.loaded_mathematicalninja_floating_nvim then
+    return
+end
+vim.g.loaded_mathematicalninja_floating_nvim = true
 
 local M = {}
 M.setup = function(setup_opts)
