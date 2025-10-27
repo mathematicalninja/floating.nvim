@@ -71,12 +71,6 @@ local Default = {
             false,
             { opts.state.style_data.clock.time }
         )
-        -- vim.api.nvim_put( --
-        --     { opts.state.style_data.clock.time },
-        --     "",
-        --     false,
-        --     false
-        -- )
     end,
 }
 return Default
