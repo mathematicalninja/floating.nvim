@@ -1,5 +1,5 @@
-duplicate loading prevention
-note "floating.nvim" is a reasonably likely name conflict.
+-- duplicate loading prevention
+-- note "floating.nvim" is a reasonably likely name conflict.
 if vim.g.loaded_mathematicalninja_floating_nvim then
     return
 end
