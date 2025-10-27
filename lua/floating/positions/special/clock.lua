@@ -11,13 +11,15 @@ local function clock()
     R.config = {
         width = 5,
         height = 1,
-        col = 1,
-        row = 1,
+        col = 0,
+        row = 0,
         title = "",
         title_pos = "center",
         relative = "editor",
         style = "minimal", -- No extra UI elements, e.g. status bar.
-        border = "shadow",
+        -- border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
+        -- border = { "", "", "", "║", "╝", "═", "", "" },
+        border = { "", "", "", "║", "╝", "═", "", "" },
     }
     return R
 end

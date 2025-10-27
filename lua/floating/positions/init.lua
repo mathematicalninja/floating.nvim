@@ -30,17 +30,17 @@
 
 --- @type {[position_abrv]:ACTIONS.DRAW.FUNCTION}
 local Positions = {
-    tr = require("floating.actions.draw.defaults.corners.tr"),
-    br = require("floating.actions.draw.defaults.corners.br"),
-    bl = require("floating.actions.draw.defaults.corners.bl"),
-    tl = require("floating.actions.draw.defaults.corners.tl"),
+    tr = require("floating.positions.corners.tr"),
+    br = require("floating.positions.corners.br"),
+    bl = require("floating.positions.corners.bl"),
+    tl = require("floating.positions.corners.tl"),
 
-    bb = require("floating.actions.draw.defaults.bars.bb"),
-    tb = require("floating.actions.draw.defaults.bars.tb"),
-    cp = require("floating.actions.draw.defaults.bars.cb"),
+    bb = require("floating.positions.bars.bb"),
+    tb = require("floating.positions.bars.tb"),
+    cp = require("floating.positions.bars.cb"),
 
-    cc = require("floating.actions.draw.defaults.special.cc"),
-    clock = require("floating.actions.draw.defaults.special.cc"),
+    cc = require("floating.positions.special.cc"),
+    clock = require("floating.positions.special.clock"),
 }
 
 return Positions

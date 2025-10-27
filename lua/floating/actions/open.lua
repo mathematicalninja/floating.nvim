@@ -19,6 +19,7 @@ local function Open(FLOAT, opts)
 
     local BUFFER = FLOAT.actions.buffer
     local STYLE = FLOAT.style_tables[style_name]
+    local dont_enter = STYLE.dont_enter
 
     -- get the STATE
     local STATE = FLOAT.state
@@ -28,10 +29,12 @@ local function Open(FLOAT, opts)
 
     local DATA = STATE.style_data[style_name]
 
+    local is_not_scratch = opts.is_not_scratch or STYLE.is_not_scratch
+
     local buf = opts.buf
     if buf == nil then
         -- defaults to scratch, when is_not_scratch == nil.
-        if opts.is_not_scratch then
+        if is_not_scratch then
             buf = BUFFER.ensure()
         else
             buf = BUFFER.new_scratch()
@@ -41,16 +44,16 @@ local function Open(FLOAT, opts)
     end
 
     -- draws the window.
-    local FAD = FLOAT.actions.draw(position, buf)
-    local bufwin = FAD.bufwin
-    local win_config = FAD.draw_opts
+    local FD = FLOAT.draw(position, buf, dont_enter)
+    local bufwin = FD.bufwin
+    local conf_pos = FD.draw_opts
 
     -- styles the window
     STYLE.style( --
         {
             state = STATE,
             bufwin = bufwin,
-            conf_pos = FAD.draw_opts,
+            conf_pos = conf_pos,
             data = DATA,
         }
     )
@@ -58,7 +61,7 @@ local function Open(FLOAT, opts)
     -- styles handle their own state, and pass to the STATE object to handle which windows are open.
     STYLE.push(STATE, { buf = bufwin.buf, win = bufwin.win, position = position })
     STATE:push_win({ buf = bufwin.buf, win = bufwin.win, position = position, style_name = style_name })
-    return win_config
+    return conf_pos
 end
 
 return Open

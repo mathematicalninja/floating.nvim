@@ -38,6 +38,7 @@ local STATE = {
 --- What's positions?
 --- How can a user extend it?
 --- Automatically?
+---
 --- for _, pos positions do
 ---     table.insert(STATE.positions, pos)
 --- end

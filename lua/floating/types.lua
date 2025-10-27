@@ -23,9 +23,11 @@
 --- @field actions ACTIONS
 --- @field state STATE
 --- @field style_tables {[style_name]:STYLE}
+--- @field draw ACTIONS.Draw
 --- @field open fun(opts: Actions.Open.opts)
 --- @field attach_style fun(STYLE:STYLE)
 --- @field toggle fun(style_name:style_name)
+--- @field positions {[position_abrv]:ACTIONS.DRAW.FUNCTION}
 
 --- @alias config_and_position {
 ---     config:vim.api.keyset.win_config,
@@ -43,6 +45,8 @@
 --- @alias STYLE {
 --- name: style_name,
 --- positions: position_abrv[],
+--- dont_enter: boolean | nil,
+--- is_not_scratch: boolean | nil,
 --- ATTACH: (fun(
 ---             FLOAT:FLOAT,
 ---         ):nil),
@@ -64,6 +68,3 @@
 --- }
 
 --- @alias ACTIONS.STYLES {[style_name]: STYLE}
-
---- @alias style_name
---- | "default"

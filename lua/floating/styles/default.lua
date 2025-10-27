@@ -1,8 +1,12 @@
+--- @alias style_name
+--- | "default"
+
 -- adds type support for this style's data.
 --- @class STATE.style_data
 --- @field default? {
 --- }
 
+--- @type style_name
 local style_name = "default"
 
 --- @type STYLE
@@ -15,7 +19,11 @@ local Default = {
     -- special cases
     -- positions = {
     --      "cc" -- center center
+    --      "clock" -- mini clock pop-up in tl corner.
     -- },
+
+    -- used for making buffers that are more permanent.
+    is_not_scratch = false,
 
     -- `ATTACH` is run when the module is loaded by nvim.
     -- This is mainly to define a state buffer in FLOAT.STATE[this.name].

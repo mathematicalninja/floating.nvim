@@ -32,6 +32,14 @@ local function Toggle(FLOAT, style_name)
             return
         end
 
+        -- if the style should *never* be entered, then just close it.
+        if STYLE.dont_enter then
+            table.remove(STATE.window_states, i)
+            STYLE.pop(STATE, w)
+            vim.api.nvim_win_close(w.win, true)
+            return
+        end
+
         -- Valid buf, not current, so focus it.
         if true then
             vim.api.nvim_set_current_win(w.win)

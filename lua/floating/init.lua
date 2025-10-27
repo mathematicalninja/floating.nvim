@@ -1,9 +1,9 @@
 -- duplicate loading prevention
 -- note "floating.nvim" is a reasonably likely name conflict.
-if vim.g.loaded_mathematicalninja_floating_nvim then
-    return
-end
-vim.g.loaded_mathematicalninja_floating_nvim = true
+-- if vim.g.loaded_mathematicalninja_floating_nvim then
+--     return
+-- end
+-- vim.g.loaded_mathematicalninja_floating_nvim = true
 
 local M = {}
 M.setup = function(setup_opts)
@@ -21,14 +21,30 @@ M.setup = function(setup_opts)
     local TABLE = {
         actions = require("floating.actions"),
         state = require("floating.state"),
-        style_tables = vim.tbl_deep_extend("force", {}, require("floating.styles"), setup_opts.styles or {}),
 
-        -- placeholders
+        style_tables = vim.tbl_deep_extend( --
+            "force", -- user opts overrides default ".styles"
+            {},
+            require("floating.styles"),
+            setup_opts.styles or {}
+        ),
 
-        open = function(opts) end,
+        positions = vim.tbl_deep_extend( --
+            "force", -- user opts overrides default ".styles"
+            {},
+            require("floating.positions"),
+            setup_opts.positions or {}
+        ),
+
         attach_style = function(STYLE) end,
+        open = function(opts) end,
         toggle = function(STYLE) end,
+
+        draw = function(position, buf, dont_enter) end,
     }
+
+    local draw_setup = require("floating.actions.draw")
+    TABLE.draw = draw_setup(TABLE.positions)
 
     -- this lets the end user just call FLOAT.open({ style_name, pos })
     TABLE.open = function(opts)
@@ -96,13 +112,11 @@ M.setup = function(setup_opts)
         vim.api.nvim_create_user_command( --
             "FloatAAA",
             function()
-                TABLE.open({
-                    style_name = "duplicate",
-                    pos = "tr",
-                })
+                TABLE.toggle("clock")
             end,
             {}
         )
+
         vim.keymap.set( --
             "n",
             "<leader><leader>k",
