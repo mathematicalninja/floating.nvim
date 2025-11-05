@@ -246,9 +246,9 @@ The options for the `.setup` function are contained in the type `Setup_Opts`.
 ```
 
 ### Setup_Opts - dev
-Type: boolean | nil
-Default value: nil
-Default behaviour: does ***nothing***, as it should.
+- Type: boolean | nil
+- Default value: nil
+- Default behaviour: does ***nothing***, as it should.
 Purpose:
 
 Used for testing purposes, exposes a user_commands for each window position, or allows me to create _temporary_ and possibly _buggy_ commands/keymaps while building.
@@ -256,37 +256,40 @@ Used for testing purposes, exposes a user_commands for each window position, or 
 No guarantee it won't cause problems, use at your own risk.
 
 ### Setup_Opts - positions
-Type: {[[position_abrv](#types-positionabrv)]:[POSITION](#types-position)}
-Default value: {}
-Default behaviour: loads the positions from [builtin](#builtin-positions)
+- Type: {[[position_abrv](#types-positionabrv)]:[POSITION](#types-position)}
+- Default value: {}
+- Default behaviour: loads the positions from [builtin](#builtin-positions)
 Purpose:
 Allows end users to pass in a table of their own custom [positions](#types-position).
 
 ### Setup_Opts - styles
-Type: {[[style_name](#types-stylename)]:[STYLE](#types-style)}
-Default value: {}
-Default behaviour: loads the styles from [builtin](#builtin-styles)
+- Type: {[[style_name](#types-stylename)]:[STYLE](#types-style)}
+- Default value: {}
+- Default behaviour: loads the styles from [builtin](#builtin-styles)
 Purpose:
 Allows end users to pass in a table of their own custom [styles](#types-style).
 
 ### Setup_Opts - extras
-Type: {
+- Type: {
+
     styles:[extra_styles](#types-extrastyles)[],
+
     positions:[extra_positions](#types-extrapositions`)[],
+
 }
-Default value: nil
-Default behaviour: does nothing.
+- Default value: nil
+- Default behaviour: does nothing.
 Purpose:
 This is used to load in more esoteric styles and positions that I though most users would have little intererst in, but I have don't want to clutter up my .config files with.
 
 #### Setup_Opts - extras.styles
-Type: [extra_styles](#types-extrastyles)[] | nil
-Default value: nil
-Default behaviour: does nothing.
+- Type: [extra_styles](#types-extrastyles)[] | nil
+- Default value: nil
+- Default behaviour: does nothing.
 Purpose:
 a _list_ of _string_ that are the names of the [extra styles](#extra-styles) to be loaded.
 
-Options:
+Example:
 ```lua
 extras.styles = {
     "clock_tl",
@@ -294,13 +297,13 @@ extras.styles = {
 ```
 
 #### Setup_Opts - extras.positions
-Type: [extra_positions](#types-extrapositions`)[] | nil
-Default value: nil
-Default behaviour: does nothing.
+- Type: [extra_positions](#types-extrapositions`)[] | nil
+- Default value: nil
+- Default behaviour: does nothing.
 Purpose:
 a _list_ of _string_ that are the names of the [extra positions](#extra-positions) to be loaded.
 
-Options:
+Example:
 ```lua
 extras.positions = {
     "clock_tl",
@@ -309,16 +312,16 @@ extras.positions = {
 
 
 ### Setup_Opts - dont_load_default_user_commands
-Type: boolean | nil
-Default value: nil
-Default behaviour: loads the [default commands](#default-user-commands).
+- Type: boolean | nil
+- Default value: nil
+- Default behaviour: loads the [default commands](#default-user-commands).
 Purpose:
 loads [commands](#default-user-commands) for each [builtin style](#builtin-styles) (e.g. FloatToggleScratch) so you can set your own keymaps or use via command line. 
 
 ### Setup_Opts - dont_use_default_keymaps
-Type: boolean | nil
-Default value: nil
-Default behaviour: loads the [default keymaps](#default-keymaps).
+- Type: boolean | nil
+- Default value: nil
+- Default behaviour: loads the [default keymaps](#default-keymaps).
 Purpose:
 loads the default [keymaps](#default-keymaps) for each [builtin style](#builtin-styles) to allow "out of the box" functionality.
 
@@ -454,7 +457,6 @@ This plugin comes with some builtin "[styles](#style)" for floating windows and 
 see [styles](#style) for details.
 
 ### Styles - scratch
-`"scratch"`
 Fills a [corner](#positions-corners) with a "scratch" buffer, matching the language of the buffer you call the function from.
 
 Allows for language highlighting while making quick mock-ups or psudo-code.
@@ -473,8 +475,7 @@ vim.keymap.set( --
 )
 ```
 
-### Styles - Duplicate
-`"duplicate"`
+### Styles - duplicate
 Fills a [corner](#positions-corners) with the current buffer.
 
 Useful for 
@@ -496,8 +497,7 @@ vim.keymap.set( --
 )
 ```
 
-### Styles - Default
-`"default"`
+### Styles - default
 A completely ordinary buffer.
 
 90% of it's purpose if to be a baseline for the other styles so you don't need to code in every property.
@@ -958,12 +958,12 @@ Takes a single option table with the following fields:
 *required* field
 
 `is_not_scratch` is used to make a "real" buffer as this plugin defaults to scratch buffers, see |vim.api.nvim_create_buf|.
-default value: nil
-default behaviour: new buffer (if created) is a throwaway buffer.
+- default value: nil
+- default behaviour: new buffer (if created) is a throwaway buffer.
 
 `buf` is used to specify a buffer if an already existing one is to be used in the float (e.g. `buf = 0` for duplicate buffers).
-default value: nil
-default behaviour: a new buffer is created.
+- default value: nil
+- default behaviour: a new buffer is created.
 
 ### Return
 type: [config_and_position](#types-configandposition)
@@ -1339,24 +1339,24 @@ Required field.
 In a `STYLE` table, `positions` is a _list_ of positions that can be used to open a window. They are checked in order to see if the global STATE object has an open window in that position and then if uses the first free (or opens in the 1st position in from the list if they are all occupied).
 
 #### Types - STYLE.dont_focus
-type: boolean | nil
-default value: nil
-default behaviour: moves into the window when it's been set up.
+- type: boolean | nil
+- default value: nil
+- default behaviour: moves into the window when it's been set up.
 
 If set to `true` then the window will not focus on creation or through `require("floating").toggle(style)`.
 
 Used for "info" windows rather than "editing" windows.
 
 #### Types - STYLE.is_not_scratch
-type: boolean | nil
-default value: nil
-default behaviour: makes an editable buffer.
+- type: boolean | nil
+- default value: nil
+- default behaviour: makes an editable buffer.
 
 If set to `true` then the buffer will be created as a scratch buffer see |help:nvim_create_buf()| for more details..
 
 #### Types - style.INIT
-type: (fun(FLOAT:[FLOAT](#types-float):nil) | nil
-default value: function(FLOAT) end
+- type: (fun(FLOAT:[FLOAT](#types-float):nil) | nil
+- default value: function(FLOAT) end
 
 This is called for each `STYLE` table when the _module_ is loaded, before each style is initialised, `STATE[style_name] = {}` is set.
 
@@ -1366,18 +1366,24 @@ This allows the user to define a data object that can be used *during* [style.se
 See [STATE.style_data](#types-state-style_data)
 
 #### Types - style.setup
-type: fun(state:[state](#types-state):nil
-required field.
+- type: fun(state:[state](#types-state):nil
+- required field.
 
 This function is called right before a new window (or it's buffer) is opened/created, so data can be stored in `STATE[style_name]` and window configuration overrides can be calculated.
 
 #### Types - style.style
 type:fun(opts:{
+
     state:[STATE](#types-state),
+
     bufwin:[bufwin](#types-bufwin),
+
     conf_pos:[config_and_position](#types-configandposition),
+
     data:[table](#types-statestyledata),
+
 })
+
 required field.
 
 This is the function that's called right after a window is opened (usually from inside the window) to allow for the *actual styling* to happen. E.g. setting file-type, inserting text, and so on.
@@ -1457,15 +1463,22 @@ Used internally by the [open](#floating-open) function to draw the window after 
 
 ### Parameters
 opts:{
+
     position:[position_abrv](#types-positionabrv),
+
     buf:integer | nil,
+
     dont_focus:boolean | nil,
+
 }
 
 ### Return
 {
+
     bufwin:[bufwin](#types-bufwin) , -- {-1, -1} for a failed attempt.
+
     draw_opts:[config_and_position](#types-configandposition)
+
 }
 
 ### Example - float.draw()
@@ -1530,6 +1543,7 @@ A global list of open windows.
 
 #### purpose
 A _blank_ slate for styles to impose their own data structure into.
+ 
 e.g.
 ```lua
 ---@class STATE.style_data
