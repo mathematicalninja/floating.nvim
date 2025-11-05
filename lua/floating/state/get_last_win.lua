@@ -1,4 +1,5 @@
---- @param STATE STATE
+---@return bufwin_state
+---@param STATE STATE
 local function Get_Last_Win(STATE)
     -- local index = STATE:get_last_index()
     -- local wins = STATE.window_states

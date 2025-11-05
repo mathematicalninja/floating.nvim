@@ -1,7 +1,7 @@
---- @alias ACTIONS.Draw (fun(
+---@alias ACTIONS.draw (fun(
 ---   position:position_abrv,
 ---   buf:integer | nil,
----   dont_enter:boolean | nil,
+---   dont_focus:boolean | nil,
 --- ): {
 ---   bufwin:bufwin, -- {-1, -1} for a failed attempt.
 ---   draw_opts:config_and_position,
@@ -9,27 +9,38 @@
 
 --- TODO: change enter = true --> depends on style's settings.
 
---- @param opts config_and_position
---- @param buf integer | nil
---- @param dont_enter boolean | nil
---- @return bufwin
-local function draw_default(opts, buf, dont_enter)
+---@param opts config_and_position
+---@param buf integer | nil
+---@param dont_focus boolean | nil
+---@return bufwin
+local function draw_default(opts, buf, dont_focus)
     local enter = true
-    if dont_enter then
+    if dont_focus then
         enter = false
     end
     local win = vim.api.nvim_open_win(buf or 0, enter, opts.config)
     return { win = win, buf = buf or 0 }
 end
 
---- @return ACTIONS.Draw
---- @param positions {[position_abrv]:ACTIONS.DRAW.FUNCTION}
+---@alias FLOAT.draw (fun(
+---     opts:{
+---         position:position_abrv,
+---         buf:integer | nil,
+---         dont_focus:boolean | nil,
+---     }):{
+---         bufwin:bufwin, -- {-1, -1} for a failed attempt.
+---         draw_opts:config_and_position
+---     })
+
+---@return ACTIONS.draw
+---@param positions {[position_abrv]:POSITION}
 local function Draw_Setup(positions)
-    --- @param position position_abrv
-    --- @param buf integer | nil
-    --- @param dont_enter boolean | nil
-    --- @return {bufwin:bufwin, draw_opts:config_and_position} {-1, -1} for a failed attempt.
-    local function Draw(position, buf, dont_enter)
+    ---@type FLOAT.draw
+    local function Draw(opts)
+        local position = opts.position
+        local buf = opts.buf
+        local dont_focus = opts.dont_focus
+
         for K, V in pairs(positions) do
             if K == position then
                 local D = V()
@@ -37,7 +48,7 @@ local function Draw_Setup(positions)
                     break
                 end
                 return { --
-                    bufwin = draw_default(D, buf, dont_enter),
+                    bufwin = draw_default(D, buf, dont_focus),
                     draw_opts = D,
                 }
             end

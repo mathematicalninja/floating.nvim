@@ -1,28 +1,30 @@
---- @alias style_name
---- | "clock"
+--- TODO read the docs on timers --> allow update clock/"alarms"
+
+---@alias style_name
+--- | "clock_br"
 
 -- adds type support for this style's data.
---- @class STATE.style_data
---- @field clock? {
+---@class STATE.style_data
+---@field clock_br? {
 ---     time:string,
 --- }
---- TODO read the docs on timers
 
---- @type style_name
-local style_name = "clock"
+---@type style_name
+local style_name = "clock_br"
 
---- @type STYLE
-local Default = {
+---@type STYLE
+local Clock_br = {
     name = style_name,
-    positions = { "clock" },
-    dont_enter = true,
+    positions = { "clock_br" },
+    dont_focus = true,
 
-    ATTACH = function(FLOAT)
-        FLOAT.state.style_data.clock = {}
+    INIT = function(FLOAT)
+        FLOAT.state.style_data.clock_br = {}
     end,
 
     setup = function(STATE)
-        local time_offset = 8
+        -- tweak for timezone nonsense.
+        local time_offset = 0
         local time_table = os.date("*t", os.time() + time_offset * 3600)
 
         local M = tonumber(time_table.min)
@@ -54,9 +56,8 @@ local Default = {
         }
 
         local time = hour_array[1] .. hour_array[2] .. ":" .. min_array[1] .. min_array[2]
-        -- local time = "🯸"
 
-        STATE.style_data.clock = {
+        STATE.style_data.clock_br = {
             time = time,
         }
     end,
@@ -69,8 +70,8 @@ local Default = {
             0,
             -1,
             false,
-            { opts.state.style_data.clock.time }
+            { opts.state.style_data.clock_br.time }
         )
     end,
 }
-return Default
+return Clock_br

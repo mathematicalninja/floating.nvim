@@ -1,17 +1,24 @@
---- @class ACTIONS
---- @field buffer ACTIONS.BUFFER
---- @field draw POSITIONS.Draw
---- @field open ACTIONS.OPEN
+---@alias ACTIONS {
+---     close:ACTIONS.close,
+---     close_last:ACTIONS.close_last,
+---     draw:ACTIONS.draw,
+---     ensure_buffer:ACTIONS.ensure_buffer,
+---     hide:ACTIONS.hide,
+---     hide_last:ACTIONS.hide_last
+---     new_scratch_buffer:ACTIONS.new_scratch_buffer,
+---     open:ACTIONS.open,
+---}
 
---- @type ACTIONS
+---@type ACTIONS
 local Actions = {
-    buffer = require("floating.actions.buffer"),
     close = require("floating.actions.close"),
+    close_last = require("floating.actions.close_last"),
+    draw = require("floating.actions.draw"),
     ensure_buffer = require("floating.actions.ensure_buffer"),
+    hide = require("floating.actions.hide"),
+    hide_last = require("floating.actions.hide_last"),
     new_scratch_buffer = require("floating.actions.new_scratch_buffer"),
     open = require("floating.actions.open"),
-
-    draw = require("floating.positions.init"),
 }
 
 return Actions

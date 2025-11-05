@@ -1,25 +1,23 @@
---- @alias ACTIONS.OPEN fun(
----   FLOAT:FLOAT,
----   opts: Actions.Open.opts,
+---@alias ACTIONS.open fun(
+---     FLOAT:FLOAT,
+---     opts: {
+---         style_name:style_name,
+---         pos:position_abrv,
+---         is_not_scratch:boolean | nil,
+---         buf: integer | nil,
+---     }
 --- ):nil
 
---- @alias Actions.Open.opts {
----   style_name:style_name,
----   pos:position_abrv,
----   is_not_scratch:boolean | nil,
----   buf: integer | nil,
---- }
-
---- @param FLOAT FLOAT
---- @param opts Actions.Open.opts
---- @return config_and_position
+-- Opens a particular style in a particular position.
+---@type ACTIONS.open
 local function Open(FLOAT, opts)
     local style_name = opts.style_name or "default"
     local position = opts.pos or "tr"
 
-    local BUFFER = FLOAT.actions.buffer
+    local new_scratch_buffer = FLOAT.actions.new_scratch_buffer
+    local ensure_buffer = FLOAT.actions.ensure_buffer
     local STYLE = FLOAT.style_tables[style_name]
-    local dont_enter = STYLE.dont_enter
+    local dont_focus = STYLE.dont_focus
 
     -- get the STATE
     local STATE = FLOAT.state
@@ -35,16 +33,20 @@ local function Open(FLOAT, opts)
     if buf == nil then
         -- defaults to scratch, when is_not_scratch == nil.
         if is_not_scratch then
-            buf = BUFFER.ensure()
+            buf = ensure_buffer()
         else
-            buf = BUFFER.new_scratch()
+            buf = new_scratch_buffer()
         end
     else
-        buf = BUFFER.ensure(buf)
+        buf = ensure_buffer(buf)
     end
 
     -- draws the window.
-    local FD = FLOAT.draw(position, buf, dont_enter)
+    local FD = FLOAT.draw({
+        position = position,
+        buf = buf,
+        dont_focus = dont_focus,
+    })
     local bufwin = FD.bufwin
     local conf_pos = FD.draw_opts
 

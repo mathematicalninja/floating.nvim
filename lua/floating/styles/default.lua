@@ -1,15 +1,15 @@
---- @alias style_name
+---@alias style_name
 --- | "default"
 
 -- adds type support for this style's data.
---- @class STATE.style_data
---- @field default? {
+---@class STATE.style_data
+---@field default? {
 --- }
 
---- @type style_name
+---@type style_name
 local style_name = "default"
 
---- @type STYLE
+---@type STYLE
 local Default = {
     name = style_name,
     -- Corners
@@ -18,16 +18,16 @@ local Default = {
     -- positions = { "tb", "cb", "bb" },
     -- special cases
     -- positions = {
-    --      "cc" -- center center
+    --      "mc" -- Mini Center
     --      "clock" -- mini clock pop-up in tl corner.
     -- },
 
     -- used for making buffers that are more permanent.
     is_not_scratch = false,
 
-    -- `ATTACH` is run when the module is loaded by nvim.
+    -- `INIT` is run when the module is loaded by nvim.
     -- This is mainly to define a state buffer in FLOAT.STATE[this.name].
-    ATTACH = function(FLOAT) end,
+    INIT = function(FLOAT) end,
 
     -- `setup` runs before the new buffer or its window is opened. Useful for getting info about current buffer or what's under the cursor.
     setup = function(STATE) end,

@@ -1,46 +1,22 @@
---- @alias Position_Return {
----     pos: position_abrv,
----     name_location:"footer" | "title",
----     config:vim.api.keyset.win_config,
---- }
---- @alias ACTIONS.DRAW.FUNCTION fun():Position_Return
---{{{ Abbreviations
-
---- @alias position_abrv
---- | corner_abrv
---- | exotic_abrv
---- | special_abrv
-
---- @alias corner_abrv
---- | 'tr'  # Top Right
---- | 'tl'  # Top Left
---- | 'br'  # Bottom Right
---- | 'bl'  # Bottom Left
-
---- @alias exotic_abrv
---- | 'tp'  # Top Pop-up -- small pop-up
---- | 'tb'  # Top Bar -- full bar across top
---- | 'bp'  # Bottom Pop-up -- small pop-up
---- | 'bb'  # Bottom Bar -- full bar across bottom
---- | 'cp'  # Center Pop-up -- small pop-up
-
---- @alias special_abrv
---- | 'cc'
---}}}
-
---- @type {[position_abrv]:ACTIONS.DRAW.FUNCTION}
+---@type {[position_abrv]:POSITION}
 local Positions = {
+    -- Corners
     tr = require("floating.positions.corners.tr"),
     br = require("floating.positions.corners.br"),
     bl = require("floating.positions.corners.bl"),
     tl = require("floating.positions.corners.tl"),
 
-    bb = require("floating.positions.bars.bb"),
+    -- Full bars
     tb = require("floating.positions.bars.tb"),
-    cp = require("floating.positions.bars.cb"),
+    bb = require("floating.positions.bars.bb"),
 
-    cc = require("floating.positions.special.cc"),
-    clock = require("floating.positions.special.clock"),
+    -- popups
+    bp = require("floating.positions.popups.bp"),
+    cp = require("floating.positions.popups.cb"),
+    tp = require("floating.positions.popups.tp"),
+
+    -- other
+    mc = require("floating.positions.special.mc"),
 }
 
 return Positions

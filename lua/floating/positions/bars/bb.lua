@@ -1,25 +1,23 @@
---- @type ACTIONS.DRAW.FUNCTION
+---@type POSITION
 local function F_bb()
-    --- @type Position_Return
+    ---@type config_and_position
     local R = {}
 
-    --- @type position_abrv
+    ---@type position_abrv
     R.pos = "bb"
 
-    --- @type "footer" | "title"
+    ---@type "footer" | "title"
     R.name_location = "title"
 
-    local col = math.floor(vim.o.columns * 0.275)
-
-    local width = math.floor(vim.o.columns * 0.45)
+    local width = vim.o.columns
     local height = 1
 
-    --- @type vim.api.keyset.win_config
+    ---@type vim.api.keyset.win_config
     R.config = {
         width = width,
         height = height,
 
-        col = col,
+        col = 1,
         row = vim.o.lines - 1,
 
         title = "",

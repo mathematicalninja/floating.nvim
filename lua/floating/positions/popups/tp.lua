@@ -1,30 +1,29 @@
---- @type ACTIONS.DRAW.FUNCTION
-local function F_cb()
-    --- @type Position_Return
+---@type POSITION
+local function F_tp()
+    ---@type config_and_position
     local R = {}
 
-    --- @type position_abrv
-    R.pos = "cp"
+    ---@type position_abrv
+    R.pos = "tp"
 
-    --- @type "footer" | "title"
-    R.name_location = "title"
+    ---@type "footer" | "title"
+    R.name_location = "footer"
 
     local col = math.floor(vim.o.columns * 0.275)
-    local row = math.floor(vim.o.lines * 0.5)
 
     local width = math.floor(vim.o.columns * 0.45)
     local height = 1
 
-    --- @type vim.api.keyset.win_config
+    ---@type vim.api.keyset.win_config
     R.config = {
         width = width,
         height = height,
 
         col = col,
-        row = row,
+        row = 1,
 
-        title = "",
-        title_pos = "center",
+        footer = "",
+        footer_pos = "center",
 
         relative = "editor",
         style = "minimal", -- No extra UI elements, e.g. status bar.
@@ -33,4 +32,4 @@ local function F_cb()
 
     return R
 end
-return F_cb
+return F_tp

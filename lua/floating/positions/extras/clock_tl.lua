@@ -1,12 +1,9 @@
---- @alias special_abrv
---- | 'clock'
-
---- @type ACTIONS.DRAW.FUNCTION
+---@type POSITION
 local function clock()
-    --- @type Position_Return
+    ---@type config_and_position
     local R = {}
 
-    R.pos = "clock"
+    R.pos = "clock_tl"
     R.name_location = "footer"
     R.config = {
         width = 5,
@@ -17,9 +14,7 @@ local function clock()
         title_pos = "center",
         relative = "editor",
         style = "minimal", -- No extra UI elements, e.g. status bar.
-        -- border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
         border = { "", "", "", "║", "╝", "═", "", "" },
-        -- border = { "", "", "", "🯎", "🯯", "═", "", "" },
     }
 
     return R

@@ -1,15 +1,18 @@
 ---@type POSITION
-local function F_tb()
+local function F_cp()
     ---@type config_and_position
     local R = {}
 
     ---@type position_abrv
-    R.pos = "tb"
+    R.pos = "cp"
 
     ---@type "footer" | "title"
-    R.name_location = "footer"
+    R.name_location = "title"
 
-    local width = vim.o.columns
+    local col = math.floor(vim.o.columns * 0.275)
+    local row = math.floor(vim.o.lines * 0.5)
+
+    local width = math.floor(vim.o.columns * 0.45)
     local height = 1
 
     ---@type vim.api.keyset.win_config
@@ -17,11 +20,11 @@ local function F_tb()
         width = width,
         height = height,
 
-        col = 1,
-        row = 1,
+        col = col,
+        row = row,
 
-        footer = "",
-        footer_pos = "center",
+        title = "",
+        title_pos = "center",
 
         relative = "editor",
         style = "minimal", -- No extra UI elements, e.g. status bar.
@@ -30,4 +33,4 @@ local function F_tb()
 
     return R
 end
-return F_tb
+return F_cp

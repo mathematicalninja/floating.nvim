@@ -1,6 +1,7 @@
-return {
-    require("floating.styles.duplicate"),
-    require("floating.styles.scratch"),
-    require("floating.styles.default"),
-    require("floating.styles.clock"),
+---@type {[style_name]:STYLE}
+local Styles = {
+    duplicate = require("floating.styles.duplicate"),
+    scratch = require("floating.styles.scratch"),
+    default = require("floating.styles.default"),
 }
+return Styles
