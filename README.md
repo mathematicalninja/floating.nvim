@@ -152,6 +152,7 @@ vim.keymap.set(
     function() 
         float.close({
             pos = "mc",
+            style_name = "shopping"
         })
     end,
     {desc = "[c]loses the floating shopping list"}
@@ -164,6 +165,7 @@ vim.keymap.set(
     function() 
         float.hide({
             pos = "mc",
+            style_name = "shopping"
         })
     end,
     {desc = "[h]ides the floating shopping list"}
@@ -1009,7 +1011,12 @@ takes a single option table with the following fields:
 
 [`pos`](#types-positionabrv) is the abbreviation of the (possibly user defined) position.
 
+[`bufwin_state`](#types-bufwinstate) the _exact_ specification of an open window.Mainly used to allow functions to call this when they know the state.
+
 ### Behaviour
+If an exact window's state is provided:
+closes that window.
+
 If only a style name is provided:
 hides the last window of that style opened.
 
@@ -1051,7 +1058,13 @@ takes a single option table with the following fields:
 
 [`pos`](#types-positionabrv) is the abbreviation of the (possibly user defined) position.
 
+
+[`bufwin_state`](#types-bufwinstate) the _exact_ specification of an open window.Mainly used to allow functions to call this when they know the state.
+
 ### Behaviour
+If an exact window's state is provided:
+closes that window.
+
 If only a style name is provided:
 closes the last window of that style opened.
 
