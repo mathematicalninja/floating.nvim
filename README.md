@@ -249,9 +249,7 @@ The options for the `.setup` function are contained in the type `Setup_Opts`.
 - Type: boolean | nil
 - Default value: nil
 - Default behaviour: does ***nothing***, as it should.
-- Purpose:
-
-Used for testing purposes, exposes a user_commands for each window position, or allows me to create _temporary_ and possibly _buggy_ commands/keymaps while building.
+- Purpose: Used for testing purposes, exposes a user_commands for each window position, or allows me to create _temporary_ and possibly _buggy_ commands/keymaps while building.
 
 No guarantee it won't cause problems, use at your own risk.
 
