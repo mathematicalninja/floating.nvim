@@ -191,9 +191,9 @@ each calling [toggle](#toggle) for that style.
 `setup_opts.dont_use_default_keymaps` is used to **skip** default user keymap creation, so if left nil, then defaults are loaded.
 
 The module comes with keymaps for each of the [Builtin Styles](#builtin-styles) in "n" mode.
-- [Scratch](#styles-scratch): "<leader>fs"
-- [Duplicate](#styles-duplicate): "<leader>fd"
-- [Default](#styles-default): "<leader>ff"
+- [Scratch](#styles-scratch): `<leader>fs`
+- [Duplicate](#styles-duplicate): `<leader>fd`
+- [Default](#styles-default): `<leader>ff`
 
 
 # Installation
@@ -914,7 +914,7 @@ vim.keymap.set(
 [Example](#example-floattogglehide)
 
 ### Purpose
-Opens new windows, switches to them if you de-focus them (e.g. with "<C-w>w"), and *hides* them if they're focused.
+Opens new windows, switches to them if you de-focus them (e.g. with `<C-w>w`), and *hides* them if they're focused.
 
 Automatically chooses position from the style's chosen preferences. See [style.positions](#tystpos
 
@@ -971,6 +971,7 @@ type: [config_and_position](#types-configandposition)
 ---@alias config_and_position {
 ---     config:vim.api.keyset.win_config,
 ---     pos:position_abrv,
+
 ---     name_location: "footer"|"title",
 --- }
 ```
