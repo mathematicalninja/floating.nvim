@@ -249,7 +249,7 @@ The options for the `.setup` function are contained in the type `Setup_Opts`.
 - Type: boolean | nil
 - Default value: nil
 - Default behaviour: does ***nothing***, as it should.
-Purpose:
+- Purpose:
 
 Used for testing purposes, exposes a user_commands for each window position, or allows me to create _temporary_ and possibly _buggy_ commands/keymaps while building.
 
@@ -259,14 +259,14 @@ No guarantee it won't cause problems, use at your own risk.
 - Type: {[[position_abrv](#types-positionabrv)]:[POSITION](#types-position)}
 - Default value: {}
 - Default behaviour: loads the positions from [builtin](#builtin-positions)
-Purpose:
+- Purpose:
 Allows end users to pass in a table of their own custom [positions](#types-position).
 
 ### Setup_Opts - styles
 - Type: {[[style_name](#types-stylename)]:[STYLE](#types-style)}
 - Default value: {}
 - Default behaviour: loads the styles from [builtin](#builtin-styles)
-Purpose:
+- Purpose:
 Allows end users to pass in a table of their own custom [styles](#types-style).
 
 ### Setup_Opts - extras
@@ -279,14 +279,14 @@ Allows end users to pass in a table of their own custom [styles](#types-style).
 }
 - Default value: nil
 - Default behaviour: does nothing.
-Purpose:
+- Purpose:
 This is used to load in more esoteric styles and positions that I though most users would have little intererst in, but I have don't want to clutter up my .config files with.
 
 #### Setup_Opts - extras.styles
 - Type: [extra_styles](#types-extrastyles)[] | nil
 - Default value: nil
 - Default behaviour: does nothing.
-Purpose:
+- Purpose:
 a _list_ of _string_ that are the names of the [extra styles](#extra-styles) to be loaded.
 
 Example:
@@ -300,7 +300,7 @@ extras.styles = {
 - Type: [extra_positions](#types-extrapositions`)[] | nil
 - Default value: nil
 - Default behaviour: does nothing.
-Purpose:
+- Purpose:
 a _list_ of _string_ that are the names of the [extra positions](#extra-positions) to be loaded.
 
 Example:
@@ -315,14 +315,14 @@ extras.positions = {
 - Type: boolean | nil
 - Default value: nil
 - Default behaviour: loads the [default commands](#default-user-commands).
-Purpose:
+- Purpose:
 loads [commands](#default-user-commands) for each [builtin style](#builtin-styles) (e.g. FloatToggleScratch) so you can set your own keymaps or use via command line. 
 
 ### Setup_Opts - dont_use_default_keymaps
 - Type: boolean | nil
 - Default value: nil
 - Default behaviour: loads the [default keymaps](#default-keymaps).
-Purpose:
+- Purpose:
 loads the default [keymaps](#default-keymaps) for each [builtin style](#builtin-styles) to allow "out of the box" functionality.
 
 
