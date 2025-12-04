@@ -9,6 +9,9 @@ vim.g.loaded_mathematicalninja_floating_nvim = true
 ---@type Module_type
 local M = {}
 M.setup = function(setup_opts)
+    if FLOATING_TABLE ~= nil then
+        return FLOATING_TABLE
+    end
     --{{{ developer mode
 
     -- Dev testing shortcut should be off, unless you want to fiddle.
@@ -20,7 +23,7 @@ M.setup = function(setup_opts)
     --{{{ Structure setup
 
     ---@type FLOAT
-    local TABLE = {
+    FLOATING_TABLE = {
         actions = require("floating.actions"),
         state = require("floating.state"),
 
@@ -59,7 +62,7 @@ M.setup = function(setup_opts)
         end
     end
 
-    TABLE.style_tables = ST
+    FLOATING_TABLE.style_tables = ST
     --}}}
 
     --{{{ positions: Load user defined.
@@ -80,38 +83,38 @@ M.setup = function(setup_opts)
         end
     end
 
-    TABLE.positions = P
+    FLOATING_TABLE.positions = P
     --}}}
 
     --{{{ FLOAT.draw(position, buf, dont_focus)
     -- since this iterates over the full list of positions, we need to initialise it _after_ TABLE.positions.
-    TABLE.draw = require("floating.actions.draw")(TABLE.positions)
+    FLOATING_TABLE.draw = require("floating.actions.draw")(FLOATING_TABLE.positions)
     --}}}
 
     --{{{ FLOAT.open({style, pos})
 
     -- this lets the end user just call FLOAT.open({ style_name, pos })
-    TABLE.open = function(opts)
+    FLOATING_TABLE.open = function(opts)
         local func = require("floating.actions.open")
-        func(TABLE, opts)
+        func(FLOATING_TABLE, opts)
     end
     --}}}
 
     --{{{ FLOAT.close(bufwin_state)
 
     -- this lets the end user just call FLOAT.close(bufwin_state)
-    TABLE.close = function(bufwin_state)
+    FLOATING_TABLE.close = function(bufwin_state)
         local func = require("floating.actions.close")
-        func(TABLE, { bufwin_state = bufwin_state })
+        func(FLOATING_TABLE, { bufwin_state = bufwin_state })
     end
     --}}}
 
     --{{{ FLOAT.hide(bufwin_state)
 
     -- this lets the end user just call FLOAT.hide( bufwin_state)
-    TABLE.hide = function(bufwin_state)
+    FLOATING_TABLE.hide = function(bufwin_state)
         local func = require("floating.actions.hide")
-        func(TABLE, { bufwin_state = bufwin_state })
+        func(FLOATING_TABLE, { bufwin_state = bufwin_state })
     end
 
     --}}}
@@ -119,33 +122,33 @@ M.setup = function(setup_opts)
     --{{{ FLOAT.toggle(style_name)
 
     -- this lets the end user just call FLOAT.toggle(style_name)
-    TABLE.toggle = function(style_name, pos)
+    FLOATING_TABLE.toggle = function(style_name, pos)
         local func = require("floating.state.toggle")
-        func(TABLE, style_name, pos)
+        func(FLOATING_TABLE, style_name, pos)
     end
     --}}}
 
     --{{{ FLOAT.toggle_hide(style_name)
 
     -- this lets the end user just call FLOAT.toggle_hide(style_name)
-    TABLE.toggle_hide = function(style_name, pos)
+    FLOATING_TABLE.toggle_hide = function(style_name, pos)
         local func = require("floating.state.toggle_hide")
-        func(TABLE, style_name, pos)
+        func(FLOATING_TABLE, style_name, pos)
     end
     --}}}
 
     --{{{ Attaching styles
 
-    TABLE.attach_style = function(STYLE)
+    FLOATING_TABLE.attach_style = function(STYLE)
         local func = require("floating.attach_style")
-        return func(TABLE, STYLE)
+        return func(FLOATING_TABLE, STYLE)
     end
 
-    for _, style_table in pairs(TABLE.style_tables) do
+    for _, style_table in pairs(FLOATING_TABLE.style_tables) do
         if style_table == nil then
             goto continue
         end
-        TABLE.attach_style(style_table)
+        FLOATING_TABLE.attach_style(style_table)
 
         ::continue::
     end
@@ -160,7 +163,7 @@ M.setup = function(setup_opts)
     vim.api.nvim_create_user_command( --
         "FloatingToggleDuplicate",
         function()
-            TABLE.toggle("duplicate")
+            FLOATING_TABLE.toggle("duplicate")
         end,
         { desc = "Toggles a floating window with the current buffer in it." }
     )
@@ -169,7 +172,7 @@ M.setup = function(setup_opts)
     vim.api.nvim_create_user_command( --
         "FloatingToggleScratch",
         function()
-            TABLE.toggle("scratch")
+            FLOATING_TABLE.toggle("scratch")
         end,
         { desc = "Toggles a scratch buffer sharing tiletype with the current buffer." }
     )
@@ -178,7 +181,7 @@ M.setup = function(setup_opts)
     vim.api.nvim_create_user_command( --
         "FloatingToggleDefault",
         function()
-            TABLE.toggle("default")
+            FLOATING_TABLE.toggle("default")
         end,
         { desc = "Toggles a default buffer/window with no special features." }
     )
@@ -196,7 +199,7 @@ M.setup = function(setup_opts)
         "n",
         "<leader>fd",
         function()
-            TABLE.toggle("duplicate")
+            FLOATING_TABLE.toggle("duplicate")
         end,
         { desc = "Toggles a [f]loating window with a [d]uplicate of the current buffer in it." }
     )
@@ -206,7 +209,7 @@ M.setup = function(setup_opts)
         "n",
         "<leader>fs",
         function()
-            TABLE.toggle("scratch")
+            FLOATING_TABLE.toggle("scratch")
         end,
         { desc = "Toggles a [f]loating [s]cratch buffer sharing tiletype with the current buffer." }
     )
@@ -216,7 +219,7 @@ M.setup = function(setup_opts)
         "n",
         "<leader>ff",
         function()
-            TABLE.toggle("default")
+            FLOATING_TABLE.toggle("default")
         end,
         { desc = "Toggles a [f]loating de[f]ault buffer/window with no special features." }
     )
@@ -227,10 +230,10 @@ M.setup = function(setup_opts)
     --{{{ Dev testing commands
 
     if setup_opts.dev then
-        require("floating.dev")(TABLE)
+        require("floating.dev")(FLOATING_TABLE)
     end
     --}}}
 
-    return TABLE
+    return FLOATING_TABLE
 end
 return M
